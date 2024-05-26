@@ -1,33 +1,26 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faInstagram,
-  faXTwitter,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-import {
-  faHeart,
-  faSearch,
-  faShoppingCart,
-} from "@fortawesome/free-solid-svg-icons";
-
 export const NavBar = () => {
   return (
     <section className="text-sm">
-      <address className="bg-[#252B42] text-white flex justify-between px-5 py-2">
-        <div className="flex gap-5">
-          <p>(225) 555-0118</p>
-          <p>michelle.rivera@example.com</p>
+      <address className="bg-headerBlue text-white flex justify-between px-5 py-2">
+        <div className="flex gap-5 items-center">
+          <div className="flex gap-2 items-center">
+            <i className="fa-solid fa-phone "></i>
+            <p>(225) 555-0118</p>
+          </div>
+          <div className="flex gap-2 items-center">
+            <i className="fa-regular fa-envelope"></i>
+            <p>michelle.rivera@example.com</p>
+          </div>
         </div>
         <div>
           <p>Follow Us and get a chance to win 80% off</p>
         </div>
         <div className="flex items-center gap-2">
           <p>Follow Us :</p>
-          <FontAwesomeIcon icon={faInstagram} />
-          <FontAwesomeIcon icon={faYoutube} />
-          <FontAwesomeIcon icon={faFacebook} />
-          <FontAwesomeIcon icon={faXTwitter} />
+          <i className="fa-brands fa-instagram"></i>
+          <i className="fa-brands fa-youtube"></i>
+          <i className="fa-brands fa-facebook"></i>
+          <i className="fa-brands fa-x-twitter"></i>
         </div>
       </address>
       <article className="flex justify-between px-5 py-3 items-center">
@@ -35,7 +28,12 @@ export const NavBar = () => {
           <h1 className="text-2xl">BrandName</h1>
           <nav className="flex text-[#737373] gap-2">
             <a href="">Home</a>
-            <a href="">Shop ^</a>
+            <a href="">
+              Shop{" "}
+              <span>
+                <i className="fa-solid fa-angle-down"></i>
+              </span>
+            </a>
             <a href="">About</a>
             <a href="">Blog</a>
             <a href="">Contact</a>
@@ -44,11 +42,13 @@ export const NavBar = () => {
         </div>
         <div className="flex gap-5 text-[#23A6F0] items-center">
           <div className="">
-            <button>Login</button>/<button>Register</button>
+            <i className="fa-regular fa-user"> </i>
+            <span> </span>
+            <button> Login</button>/<button>Register</button>
           </div>
-          <FontAwesomeIcon icon={faSearch} />
-          <FontAwesomeIcon icon={faShoppingCart} />
-          <FontAwesomeIcon icon={faHeart} />
+          <i className="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-cart-shopping"></i>
+          <i className="fa-regular fa-heart"></i>
         </div>
       </article>
     </section>

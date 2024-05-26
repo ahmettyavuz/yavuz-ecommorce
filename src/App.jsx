@@ -1,15 +1,12 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-
 import "./App.css";
 import "./index.css";
-import { Header } from "./layout/Header";
+import { Home } from "./pages/HomePage";
 
 function App() {
   return (
-    <>
-      <Header />
-    </>
+    <div className="max-w-[2000px] m-auto">
+      <Home />
+    </div>
   );
 }
 
