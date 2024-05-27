@@ -12,6 +12,7 @@ export default {
         heroRight: "#ABECD6",
         heroContent: "#2A7CC7",
         primary: "#23A6F0",
+        customColor: "#2D8BC0",
         success: "#2DC071",
         secondTextColor: "#737373",
         lightSecontTextColor: "#858585",
@@ -24,6 +25,9 @@ export default {
         borderGray: "#DDDDDD",
         dropDownGray: "#F9F9F9",
         yellow: "#F3CD03",
+      },
+      opacity: {
+        75: "0.75",
       },
     },
   },

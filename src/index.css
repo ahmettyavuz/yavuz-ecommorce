@@ -127,11 +127,14 @@ table {
 @tailwind components;
 @tailwind utilities;
 
-.bg-gradient-custom {
-  background: linear-gradient(
-    to right,
-    #96e9fb,
-    #abecd6 calc(100% - 2rem),
-    white 2rem
-  );
+.z-index {
+  z-index: -1;
+}
+
+.z-index-2 {
+  z-index: -2;
+}
+
+.z-index-3 {
+  z-index: -10;
 }
