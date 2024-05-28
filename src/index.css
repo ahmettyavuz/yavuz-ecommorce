@@ -138,3 +138,31 @@ table {
 .z-index-3 {
   z-index: -10;
 }
+
+body {
+  @apply text-base; /* Varsayılan font size */
+}
+
+@media (min-width: 640px) {
+  body {
+    @apply text-sm; /* Küçük ekranlar için (640px ve yukarısı) */
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    @apply text-lg; /* Orta ekranlar için (768px ve yukarısı) */
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    @apply text-xl; /* Büyük ekranlar için (1024px ve yukarısı) */
+  }
+}
+
+@media (min-width: 1280px) {
+  body {
+    @apply text-2xl; /* Çok büyük ekranlar için (1280px ve yukarısı) */
+  }
+}
