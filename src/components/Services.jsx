@@ -1,7 +1,7 @@
 export const Services = () => {
   return (
     <>
-      <section className="flex justify-center py-10 ">
+      <section className="flex justify-center py-3 max-md:py-15">
         <div className="flex flex-col items-center basis-[80%]">
           <div className="text-center my-20">
             <p className="font-normal text-xl text-secondTextColor py-1">

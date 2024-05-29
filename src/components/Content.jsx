@@ -4,7 +4,7 @@ import right from "../assets/content-right.png";
 export const Content = () => {
   return (
     <>
-      <section className="flex justify-center">
+      <section className="flex justify-center py-20 max-sm:py-10 max-md:py-15">
         <div className="flex justify-center items-center flex-wrap-reverse basis-[80%] gap-[4%] gap-y-5">
           <div className="flex justify-center gap-4 max-md:w-[100%] w-[48%] min-w-[300]">
             <div>
