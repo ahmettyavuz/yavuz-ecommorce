@@ -1,6 +1,6 @@
-import left from "../assets/unsplash_Bd7gNnWJBkUshopcardleft.jpg";
-import topRight from "../assets/unsplash_Bd7gNnWJBkUtopright.jpg";
-import bottomRight from "../assets/unsplash_Bd7gNnWJBkUbottomright.jpg";
+import left from "../assets/shop-card-left.jpg";
+import topRight from "../assets/shop-card-top-right.jpg";
+import bottomRight from "../assets/shop-card-bottom-right.jpg";
 
 export const ShopCards = () => {
   return (

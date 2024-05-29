@@ -1,11 +1,15 @@
 import "./App.css";
 import "./index.css";
-import { Home } from "./pages/HomePage";
+import { Footer } from "./layout/Footer";
+import { Header } from "./layout/Header";
+import { PageContent } from "./layout/PageContent";
 
 function App() {
   return (
     <div className="max-w-[5000px] m-auto">
-      <Home />
+      <Header />
+      <PageContent />
+      <Footer />
     </div>
   );
 }

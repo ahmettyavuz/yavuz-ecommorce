@@ -1,16 +1,17 @@
 import { Clients } from "../components/Clients";
+import { Content } from "../components/Content";
 import { Hero } from "../components/Hero";
-import { ProductCard } from "../components/ProductCard";
+import { Services } from "../components/Services";
 import { ShopCards } from "../components/ShopCards";
-import { Header } from "../layout/Header";
 
-export const Home = () => {
+export const HomePage = () => {
   return (
     <>
-      {/* <Header /> */}
       <Hero />
       <Clients />
       <ShopCards />
+      <Content />
+      <Services />
     </>
   );
 };

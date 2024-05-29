@@ -1,4 +1,4 @@
-import Kızıl from "../assets/technology 1kızıl.png";
+import Kızıl from "../assets/Hero.png";
 
 export const Hero = () => {
   return (
