@@ -6,8 +6,8 @@ import { PageContent } from "./layout/PageContent";
 
 function App() {
   return (
-    <div className="max-w-[5000px] m-auto">
-      {/*  <Header /> */}
+    <div className="max-w-[2000px] m-auto">
+      <Header />
       <PageContent />
       <Footer />
     </div>
