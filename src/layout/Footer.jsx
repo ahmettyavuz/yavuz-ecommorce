@@ -84,13 +84,13 @@ export const Footer = () => {
             </div>
             <div className="font-bold flex flex-col basis[34%] mx-auto min-w-[320px] gap-3 text-sm tracking-wider text-secondTextColor">
               <h5 className="text-black text-lg py-3">Get In Touch</h5>
-              <div className="flex justify-between rounded-md border-secondTextColor border-2">
+              <div className="flex justify-start rounded-md border-secondTextColor border-2">
                 <input
                   type="text"
                   placeholder="Your Email"
-                  className="py-5 rounded-l-md bg-bgInput pl-4"
+                  className="py-5 rounded-l-md bg-bgInput pl-4 w-full"
                 />
-                <button className="py-5 px-10 bg-primary text-white rounded-r-md hover:opacity-75">
+                <button className="py-5 px-10 bg-primary text-white rounded-r-sm hover:opacity-75">
                   Subscribe
                 </button>
               </div>

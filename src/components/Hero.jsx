@@ -7,7 +7,7 @@ export const Hero = () => {
   }
   return (
     <>
-      <section className="flex justify-center">
+      <section className="flex justify-center py-10">
         <Carousel specialClasses="basis-[90%]">{arr}</Carousel>
       </section>
     </>

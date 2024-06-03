@@ -45,7 +45,7 @@ export const NavBar = () => {
             <a className="hover:underline" href="/contact">
               Contact
             </a>
-            <a className="hover:underline" href="/">
+            <a className="hover:underline" href="/details">
               Pages
             </a>
           </nav>

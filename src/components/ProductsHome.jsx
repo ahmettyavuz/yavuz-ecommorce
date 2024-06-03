@@ -1,9 +1,14 @@
 import { ProductCard } from "./ProductCard";
 
-export const Products = () => {
+export const ProductsHome = () => {
   const productCards = [];
   for (let i = 0; i < 10; i++) {
-    productCards.push(<ProductCard key={i} />);
+    productCards.push(
+      <ProductCard
+        key={i}
+        cssDiv="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
+      />
+    );
   }
 
   return (
@@ -24,7 +29,7 @@ export const Products = () => {
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
             {productCards}
           </div>
-          <button className="font-bold text-primary text-sm tracking-wider border-2 rounded-md border-primary max-md:px-9 px-14 py-4 mt-6 hover:opacity-60">
+          <button className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 hover:opacity-60">
             LOAD MORE PRODUCTS
           </button>
         </div>

@@ -3,14 +3,14 @@ import featured from "../assets/featuredpost.jpg";
 export const Post = () => {
   return (
     <>
-      <article className="shadow-lg pr-5 max-sm:py-4 hover:shadow-2xl hover:shadow-secondTextColor">
-        <div className="flex justify-center gap-4 max-sm:flex-wrap  ">
-          <div className="relative basis-[44%] max-sm:basis-[80%] aspect-[2/3.5] max-sm:aspect-[1/1]">
+      <article className="shadow-lg sm:pr-5 max-sm:py-4 hover:shadow-2xl hover:shadow-secondTextColor">
+        <div className="flex justify-center gap-4 max-sm:flex-wrap">
+          <div className="relative basis-[44%] max-sm:basis-[100%] aspect-[2/3.5] max-sm:aspect-[1/1]">
             <img className="w-full h-full" src={featured} alt="" />
             <p className="absolute text-sm max-sm:text-lg leading-6 top-5 left-5 bg-error text-white px-3">
               Sale
             </p>
-            <div className="absolute bottom-5 left-[13%] max-lg:left-[25%] max-sm:left-[19%] flex justify-center gap-4 text-xl max-xl:text-sm max-lg:text-xs max-sm:text-2xl">
+            <div className="absolute bottom-5 left-1/2 translate-x-[-50%] flex justify-center gap-4 text-xl max-xl:text-sm max-lg:text-xs max-sm:text-2xl">
               <div className="bg-white rounded-full p-2">
                 <i className="fa-regular fa-heart"></i>
               </div>
@@ -22,7 +22,7 @@ export const Post = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-2 basis-[53%] max-sm:basis-[80%] aspect-[1/1] max-sm:aspect-[1/1] justify-evenly">
+          <div className="flex flex-col gap-2 basis-[56%] max-sm:basis-[80%] aspect-[1/1] max-sm:aspect-[1/1] justify-evenly">
             <div className="flex justify-between">
               <p className="font-normal text-sm max-sm:text-lg py-1 text-primary">
                 English Department
