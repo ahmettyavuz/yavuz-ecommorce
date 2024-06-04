@@ -1,8 +1,25 @@
+import { useState } from "react";
 import detail1 from "../assets/detail-1.jpg";
 import detail2 from "../assets/detail-2.jpg";
 import detail3 from "../assets/detail-3.jpg";
+import detail4 from "../assets/detail4.jpeg";
 
 export const DetailContainer = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const slider = (e) => {
+    const name = e.target.name;
+    if (name === "prev" || name === "next") e.preventDefault();
+
+    if (name === "prev") {
+      setActiveIndex(activeIndex <= 0 ? 1 : activeIndex - 1);
+    } else {
+      setActiveIndex(activeIndex >= 1 ? 0 : activeIndex + 1);
+    }
+  };
+
+  const img = [detail3, detail4];
+
   return (
     <>
       <section className="flex  justify-center bg-bgGray py-16">
@@ -19,33 +36,45 @@ export const DetailContainer = () => {
               Shop
             </a>
           </div>
-          <div className="flex gap-6">
+          <div className="flex gap-6 max-md:flex-col justify-center">
             <div className="basis-[45%] flex flex-col gap-4">
               <div className="relative flex items-center ">
                 <img
-                  className="w-full h-full "
-                  src={detail3}
+                  className="w-full h-full aspect-[1/1] "
+                  src={img[activeIndex]}
                   alt="detail.jpg"
                 />
                 <button
                   name="next"
                   className="bg-transparent text-white text-5xl active:text-black absolute right-[8%] hover:opacity-75"
+                  onClick={slider}
                 >
                   {">"}
                 </button>
                 <button
                   name="prev"
                   className="bg-transparent text-white text-5xl active:text-black absolute left-[8%] hover:opacity-75"
+                  onClick={slider}
                 >
                   {"<"}
                 </button>
               </div>
               <div className="flex gap-4">
-                <img src={detail1} alt="detail.jpg" />
-                <img src={detail2} alt="detail.jpg" />
+                <img
+                  className={`${activeIndex === 0 ? "opacity-75" : "opacity-20"}`}
+                  src={detail1}
+                  alt="detail.jpg"
+                  onClick={() => setActiveIndex(0)}
+                />
+                <img
+                  className={`${activeIndex === 1 ? "opacity-75" : "opacity-20"}`}
+                  src={detail2}
+                  alt="detail.jpg"
+                  onClick={() => setActiveIndex(1)}
+                />
               </div>
             </div>
-            <div className="flex flex-col justify-between basis-[50%] max-h-[80%] px-5 pb-24">
+            <div className="flex flex-col justify-between basis-[50%]  max-lg:pb-2 px-5 pb-24">
               <h4 className="text-xl">Floating Phone</h4>
               <div className="flex gap-1">
                 <i className="fa-solid fa-star text-yellow text-sm max-sm:text-base"></i>

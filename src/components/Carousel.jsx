@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Carousel({ children }) {
+function Carousel({ children, display }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideDone, setSlideDone] = useState(true);
   const [timeID, setTimeID] = useState(null);
@@ -43,7 +43,7 @@ function Carousel({ children }) {
 
   return (
     <div
-      className="relative w-full overflow-hidden flex justify-start items-center"
+      className={`{relative w-full overflow-hidden flex justify-start items-center ${display}}`}
       onMouseEnter={AutoPlayStop}
       onMouseLeave={AutoPlayStart}
     >
