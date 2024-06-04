@@ -1,29 +1,29 @@
 import { useState } from "react";
-import detail1 from "../assets/detail-1.jpg";
-import detail2 from "../assets/detail-2.jpg";
-import detail3 from "../assets/detail-3.jpg";
-import detail4 from "../assets/detail4.jpeg";
+import detailImg1 from "../assets/detail-3.jpg";
+import detailImg2 from "../assets/detail4.jpeg";
 
-export const DetailContainer = () => {
+const data = [detailImg1, detailImg2];
+
+export const ProductDetail = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const slider = (e) => {
+  const handleClick = (e) => {
     const name = e.target.name;
-    if (name === "prev" || name === "next") e.preventDefault();
 
     if (name === "prev") {
-      setActiveIndex(activeIndex <= 0 ? 1 : activeIndex - 1);
+      setActiveIndex(activeIndex <= 0 ? data.length - 1 : activeIndex - 1);
+    } else if (name === "next") {
+      setActiveIndex(activeIndex >= data.length - 1 ? 0 : activeIndex + 1);
     } else {
-      setActiveIndex(activeIndex >= 1 ? 0 : activeIndex + 1);
+      console.log(e.target.value + "girdim");
+      setActiveIndex(e.target.value);
     }
   };
 
-  const img = [detail3, detail4];
-
   return (
     <>
-      <section className="flex  justify-center bg-bgGray py-16">
-        <div className="basis-[85%]">
+      <section className="flex justify-center bg-bgGray py-16">
+        <article className="basis-[85%]">
           <div className="py-5 px-5">
             <a className="font-bold text-sm hover:underline" href="/">
               Home
@@ -36,45 +36,48 @@ export const DetailContainer = () => {
               Shop
             </a>
           </div>
-          <div className="flex gap-6 max-md:flex-col justify-center">
-            <div className="basis-[45%] flex flex-col gap-4">
-              <div className="relative flex items-center ">
+          <section className="flex max-md:flex-col justify-between gap-5">
+            <article className="basis-[48%]">
+              <div className="relative aspect-[1.1/1] pb-5">
                 <img
-                  className="w-full h-full aspect-[1/1] "
-                  src={img[activeIndex]}
+                  src={data[activeIndex]}
                   alt="detail.jpg"
+                  className="w-full h-full object-contain"
                 />
                 <button
                   name="next"
-                  className="bg-transparent text-white text-5xl active:text-black absolute right-[8%] hover:opacity-75"
-                  onClick={slider}
+                  className="bg-transparent text-yellow active:text-black text-6xl absolute right-[8%] top-[50%] hover:opacity-75"
+                  onClick={handleClick}
                 >
                   {">"}
                 </button>
                 <button
                   name="prev"
-                  className="bg-transparent text-white text-5xl active:text-black absolute left-[8%] hover:opacity-75"
-                  onClick={slider}
+                  className="bg-transparent text-yellow active:text-black text-6xl absolute left-[8%] top-[50%] hover:opacity-75"
+                  onClick={handleClick}
                 >
                   {"<"}
                 </button>
               </div>
-              <div className="flex gap-4">
-                <img
-                  className={`${activeIndex === 0 ? "opacity-75" : "opacity-20"}`}
-                  src={detail1}
-                  alt="detail.jpg"
-                  onClick={() => setActiveIndex(0)}
-                />
-                <img
-                  className={`${activeIndex === 1 ? "opacity-75" : "opacity-20"}`}
-                  src={detail2}
-                  alt="detail.jpg"
-                  onClick={() => setActiveIndex(1)}
-                />
+              <div className="flex gap-[3%]">
+                {data.map((item, index) => (
+                  <div
+                    name="direct"
+                    value={index}
+                    className="basis-[20%] aspect-[1/0.75]"
+                    key={index}
+                    onClick={handleClick}
+                  >
+                    <img
+                      src={item}
+                      alt="detail.jpg"
+                      className={`w-full h-full object-cover ${index == activeIndex ? "opacity-20" : null}`}
+                    />
+                  </div>
+                ))}
               </div>
-            </div>
-            <div className="flex flex-col justify-between basis-[50%]  max-lg:pb-2 px-5 pb-24">
+            </article>
+            <article className="flex flex-col justify-between basis-[48%] aspect-[1.1/1] max-md:aspect-[4/3] max-sm:aspect-[1/1.1] pb-[10.5%] max-lg:pb-[2%]">
               <h4 className="text-xl">Floating Phone</h4>
               <div className="flex gap-1">
                 <i className="fa-solid fa-star text-yellow text-sm max-sm:text-base"></i>
@@ -121,10 +124,9 @@ export const DetailContainer = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div></div>
-          </div>
-        </div>
+            </article>
+          </section>
+        </article>
       </section>
     </>
   );

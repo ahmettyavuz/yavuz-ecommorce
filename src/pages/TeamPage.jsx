@@ -1,6 +1,6 @@
 import { TeamCard } from "../components/TeamCard";
 
-const BlogPage = () => {
+const TeamPage = () => {
   return (
     <>
       <TeamCard />
@@ -8,4 +8,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default TeamPage;

@@ -1,9 +1,15 @@
-import { DetailContainer } from "../components/DetailContainer";
+import { Clients } from "../components/Clients";
+import ProductBestSellers from "../components/ProductBestSeller";
+import { ProductDescription } from "../components/ProductDescription";
+import { ProductDetail } from "../components/ProductDetail";
 
 const ProductDetailPage = () => {
   return (
     <>
-      <DetailContainer />
+      <ProductDetail />
+      <ProductDescription />
+      <ProductBestSellers />
+      <Clients />
     </>
   );
 };
