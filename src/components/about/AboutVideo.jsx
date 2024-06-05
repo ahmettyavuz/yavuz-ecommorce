@@ -28,7 +28,7 @@ export const AboutVideo = () => {
             className="absolute top-[50%] translate-y-[-50%]  bg-blue-500 md:w-24 md:h-24 h-12 w-12 rounded-full flex justify-center items-center shadow-md z-10"
             onClick={handlePlayPause}
           >
-            <i className="fa-solid fa-play text-white md:text-4xl text-2xl"></i>
+            <i className="fa-solid fa-play text-white md:text-4xl text-2xl hover:opacity-75"></i>
           </button>
         )}
       </div>

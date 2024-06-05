@@ -22,7 +22,7 @@ export const ContactMain = () => {
               </h6>
               <h5 className=" font-bold leading-6 my-4">Get Support</h5>
 
-              <button className="py-4 px-9 border border-primary rounded-full text-primary">
+              <button className="py-4 px-9 border border-primary rounded-full text-primary hover:opacity-40">
                 Submit Request
               </button>
             </div>
@@ -42,7 +42,7 @@ export const ContactMain = () => {
               </h6>
               <h5 className=" font-bold leading-6 my-4">Get Support</h5>
 
-              <button className="py-4 px-9 border border-primary rounded-full text-primary">
+              <button className="py-4 px-9 border border-primary rounded-full text-primary hover:opacity-75">
                 Submit Request
               </button>
             </div>
@@ -60,7 +60,7 @@ export const ContactMain = () => {
               </h6>
               <h5 className=" font-bold leading-6 my-4">Get Support</h5>
 
-              <button className="py-4 px-9 border border-primary rounded-full text-primary">
+              <button className="py-4 px-9 border border-primary rounded-full text-primary hover:opacity-75">
                 Submit Request
               </button>
             </div>

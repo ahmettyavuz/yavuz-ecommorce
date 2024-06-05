@@ -6,9 +6,9 @@ export const Footer = () => {
           <div className="flex flex-wrap justify-between items-center basis-[85%] text-2xl pr-[10%]">
             <h3 className="font-bold">BrandName</h3>
             <div className="w-[125px] flex gap-8 text-primary">
-              <i className="fa-brands fa-facebook"></i>
-              <i className="fa-brands fa-instagram"></i>
-              <i className="fa-brands fa-x-twitter"></i>
+              <i className="fa-brands fa-facebook hover:opacity-75"></i>
+              <i className="fa-brands fa-instagram hover:opacity-75"></i>
+              <i className="fa-brands fa-x-twitter hover:opacity-75"></i>
             </div>
           </div>
         </div>
@@ -28,8 +28,8 @@ export const Footer = () => {
                 <a className="hover:underline" href="">
                   We are hiring
                 </a>
-                <a className="hover:underline" href="">
-                  Blog
+                <a className="hover:underline" href="/team">
+                  Team
                 </a>
               </div>
               <div className="font-bold  flex flex-col max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
@@ -43,8 +43,8 @@ export const Footer = () => {
                 <a className="hover:underline" href="">
                   We are hiring
                 </a>
-                <a className="hover:underline" href="/blog">
-                  Blog
+                <a className="hover:underline" href="/team">
+                  Team
                 </a>
               </div>
               <div className="font-bold flex flex-col  max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
