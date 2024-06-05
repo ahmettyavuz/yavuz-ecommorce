@@ -15,7 +15,6 @@ export const ProductDetail = () => {
     } else if (name === "next") {
       setActiveIndex(activeIndex >= data.length - 1 ? 0 : activeIndex + 1);
     } else {
-      console.log(e.target.value + "girdim");
       setActiveIndex(Number(e.currentTarget.dataset.value));
     }
   };
