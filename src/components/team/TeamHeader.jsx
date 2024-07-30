@@ -1,8 +1,9 @@
-import img1 from "../../assets/teamHeader-1.jpg";
-import img2 from "../../assets/teamHeader-2.jpg";
-import img3 from "../../assets/teamHeader-3.jpg";
-import img4 from "../../assets/teamHeader-4.jpg";
-import img5 from "../../assets/teamHeader-5.jpg";
+import { Link } from "react-router-dom";
+import img1 from "../../assets/teamHeaderImg-1.jpg";
+import img2 from "../../assets/teamHeaderImg-2.jpg";
+import img3 from "../../assets/teamHeaderImg-3.jpg";
+import img4 from "../../assets/teamHeaderImg-4.jpg";
+import img5 from "../../assets/teamHeaderImg-5.jpg";
 
 export const TeamHeader = () => {
   return (
@@ -12,13 +13,13 @@ export const TeamHeader = () => {
         Innovation tailored for you
       </h1>
       <div className="mb-12 mt-7">
-        <a href="/" className="mx-2 hover:underline">
-          Home{"/team"}
-        </a>
+        <Link to="/" className="mx-2 hover:underline">
+          Home{" "}
+        </Link>
         {">"}
-        <a href="" className="text-secondTextColor mx-2 hover:underline">
+        <Link to="/team" className="text-secondTextColor mx-2 hover:underline">
           Team
-        </a>
+        </Link>
       </div>
       <div className="flex max-md:flex-wrap gap-2 justify-between">
         <div className="basis-[50%] max-md:basis-[100%] aspect-[7/5.3]">

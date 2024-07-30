@@ -4,14 +4,14 @@ import { FeaturedPosts } from "../components/home/FeaturedPosts";
 import { Hero } from "../components/home/Hero";
 import { ProductsHome } from "../components/product/ProductsHome";
 import { Services } from "../components/home/Services";
-import { ShopCards } from "../components/home/ShopCards";
+import { ShopCard } from "../components/home/ShopCard";
 
 const HomePage = () => {
   return (
     <>
       <Hero />
       <Clients />
-      <ShopCards />
+      <ShopCard />
       <ProductsHome />
       <Content />
       <Services />
@@ -19,4 +19,5 @@ const HomePage = () => {
     </>
   );
 };
+
 export default HomePage;

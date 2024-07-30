@@ -1,19 +1,21 @@
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
-import ShopPage from "../pages/ShopPage";
-import ContactPage from "../pages/ContactPage";
-import AboutPage from "../pages/AboutPage";
+import { Switch, Route } from "react-router-dom/";
 import HomePage from "../pages/HomePage";
-import ProductDetailPage from "../pages/ProductDetailPage";
+import AboutPage from "../pages/AboutPage";
+import ContactPage from "../pages/ContactPage";
+import ShopPage from "../pages/ShopPage";
 import TeamPage from "../pages/TeamPage";
+import ProductDetailPage from "../pages/ProductDetailPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 
 export const PageContent = () => {
   return (
-    <div>
+    <>
       <Switch>
         <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path="/shop">
+        <Route path="/shop" exact>
           <ShopPage />
         </Route>
         <Route path="/team">
@@ -25,10 +27,16 @@ export const PageContent = () => {
         <Route path="/about-us">
           <AboutPage />
         </Route>
-        <Route path="/details">
+        <Route path="/detail">
           <ProductDetailPage />
         </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
       </Switch>
-    </div>
+    </>
   );
 };
