@@ -1,7 +1,6 @@
-import { Clients } from "../components/home/Clients";
-import ProductBestSellers from "../components/product/ProductBestSeller";
 import { ProductDescription } from "../components/product/ProductDescription";
 import { ProductDetail } from "../components/product/ProductDetail";
+import ProductBestSellers from "../components/product/ProductsBestSeller";
 
 const ProductDetailPage = () => {
   return (
@@ -9,7 +8,6 @@ const ProductDetailPage = () => {
       <ProductDetail />
       <ProductDescription />
       <ProductBestSellers />
-      <Clients />
     </>
   );
 };

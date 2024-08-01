@@ -6,7 +6,7 @@ export const AboutContent = () => {
           <p className="text-error font-medium text-sm mt-10 md:mt-0">
             Problems trying
           </p>
-          <div className="mt-6 md:flex">
+          <div className="mt-6 md:flex m-auto">
             <h3 className="text-headerColor font-bold text-2xl mb-10 lg:mb-0 md:mr-10 basis-[40%]">
               Met minim Mollie non desert Alamo est sit cliquey dolor do met
               sent.

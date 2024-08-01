@@ -1,5 +1,5 @@
-import left from "../../assets/content-left.jpg";
-import right from "../../assets/content-right.png";
+import ContentLeft from "../../assets/content-left.jpg";
+import ContentRight from "../../assets/content-right.jpg";
 
 export const Content = () => {
   return (
@@ -8,10 +8,10 @@ export const Content = () => {
         <div className="flex justify-center items-center flex-wrap-reverse basis-[80%] gap-[4%] gap-y-5">
           <div className="flex justify-center gap-4 max-md:w-[100%] w-[48%] min-w-[300]">
             <div>
-              <img src={left} alt="content-left.jpeg" />
+              <img src={ContentLeft} alt="content-left.jpg" />
             </div>
             <div>
-              <img src={right} alt="content-right.jpeg" />
+              <img src={ContentRight} alt="content-right.jpg" />
             </div>
           </div>
           <div className="flex flex-col  items-start justify-center max-md:w-[80%] w-[48%] gap-5">

@@ -1,4 +1,4 @@
-import aboutHeader from "../../assets/AboutHeader.png";
+import aboutHeader from "../../assets/aboutHeaderImg.png";
 
 export const AboutHeader = () => {
   return (

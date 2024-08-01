@@ -1,5 +1,5 @@
 import { ProductCard } from "./ProductCard";
-import ProductImg from "../../assets/product-2.jpg";
+import ProductImg from "../../assets/ProductImg.jpg";
 
 const data = [
   ProductImg,

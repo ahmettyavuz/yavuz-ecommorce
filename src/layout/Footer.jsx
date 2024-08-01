@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () => {
   return (
     <>
@@ -6,9 +8,9 @@ export const Footer = () => {
           <div className="flex flex-wrap justify-between items-center basis-[85%] text-2xl pr-[10%]">
             <h3 className="font-bold">BrandName</h3>
             <div className="w-[125px] flex gap-8 text-primary">
-              <i className="fa-brands fa-facebook hover:opacity-75"></i>
-              <i className="fa-brands fa-instagram hover:opacity-75"></i>
-              <i className="fa-brands fa-x-twitter hover:opacity-75"></i>
+              <i className="fa-brands fa-facebook hover:opacity-45"></i>
+              <i className="fa-brands fa-instagram hover:opacity-45"></i>
+              <i className="fa-brands fa-x-twitter hover:opacity-45"></i>
             </div>
           </div>
         </div>
@@ -19,78 +21,78 @@ export const Footer = () => {
                 <h5 className="text-black text-lg tracking-wide py-3">
                   Company Info
                 </h5>
-                <a className="hover:underline" href="/about-us">
+                <Link className="hover:underline" to="/about-us">
                   About Us
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Carrier
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   We are hiring
-                </a>
-                <a className="hover:underline" href="/team">
+                </Link>
+                <Link className="hover:underline" to="/team">
                   Team
-                </a>
+                </Link>
               </div>
               <div className="font-bold  flex flex-col max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
                 <h5 className="text-black text-lg tracking-wide py-3">Legal</h5>
-                <a className="hover:underline" href="/about-us">
+                <Link className="hover:underline" to="/about-us">
                   About Us
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Carrier
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   We are hiring
-                </a>
-                <a className="hover:underline" href="/team">
+                </Link>
+                <Link className="hover:underline" to="/team">
                   Team
-                </a>
+                </Link>
               </div>
               <div className="font-bold flex flex-col  max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
                 <h5 className="text-black text-lg tracking-wide py-3">
                   Features
                 </h5>
-                <a className="hover:underline" href="">
+                <Link className="hover:underline" to="">
                   Business Marketing
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   User Analytic
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Live Chat
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Unlimited Support
-                </a>
+                </Link>
               </div>
               <div className="font-bold flex flex-col max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
                 <h5 className="text-black text-lg tracking-wide py-3">
                   Resources
                 </h5>
-                <a className="hover:underline" href="">
+                <Link className="hover:underline" to="">
                   IOS & Android
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Watch a Demo
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Customers
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   API
-                </a>
+                </Link>
               </div>
             </div>
             <div className="font-bold flex flex-col basis[34%] mx-auto min-w-[320px] gap-3 text-sm tracking-wider text-secondTextColor">
               <h5 className="text-black text-lg py-3">Get In Touch</h5>
-              <div className="flex justify-start rounded-md border-secondTextColor border-2">
+              <div className="flex justify-between rounded-md border-secondTextColor border-2 ">
                 <input
                   type="text"
                   placeholder="Your Email"
-                  className="py-5 rounded-l-md bg-bgInput pl-4 w-full"
+                  className="py-5 rounded-l-md bg-bgInput pl-4"
                 />
-                <button className="py-5 px-10 bg-primary text-white rounded-r-sm hover:opacity-75">
+                <button className="py-5 px-10 bg-primary text-white rounded-r-md hover:opacity-75">
                   Subscribe
                 </button>
               </div>
