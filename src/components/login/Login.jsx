@@ -2,7 +2,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { showToast } from "../util/ShowToast";
+import { showToast } from "../../util/ShowToast";
+import { METHODS, sendRequest } from "../../util/axiosUtil";
+import { useDispatch } from "react-redux";
+import { getUser } from "../../store/actions/clientAction";
 
 const formData = {
   email: "",
@@ -20,9 +23,28 @@ export const Login = () => {
   });
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    axios
+    dispatch(getUser(data, history));
+  };
+  /* sendRequest({
+      url: "/login",
+      method: METHODS.POST,
+      data: data,
+      callbackSuccess: () =>
+        showToast({
+          message: "WELCOME",
+          type: "success",
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: false,
+          transition: "Zoom",
+        }),
+      callbackError: (error) => console.error("girdim:", error.message),
+    }); */
+
+  /*     axios
       .post("https://workintech-fe-ecommerce.onrender.com/login", data)
       .then((response) => {
         console.log("data :", response.data);
@@ -39,7 +61,7 @@ export const Login = () => {
       .catch((error) => {
         console.error("girdim:", error.message);
       });
-  };
+  */
 
   return (
     <section className="flex justify-center py-10">

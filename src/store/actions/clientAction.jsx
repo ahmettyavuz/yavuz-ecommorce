@@ -1,4 +1,6 @@
-import useAxios from "../../hooks/useAxios";
+import { showToast } from "../../util/ShowToast";
+import { METHODS } from "../../util/axiosUtil";
+import { sendRequest } from "../../util/axiosUtil";
 
 export const SET_USER = "SET_USER";
 export const SET_ROLES = "SET_ROLES";
@@ -28,11 +30,41 @@ export const setLanguage = (data) => {
 };
 
 export const getRoles = () => (dispatch) => {
-  const { sendRequest, METHODS } = useAxios();
-  sendRequest({
-    url: "/roles",
-    method: METHODS.GET,
-    callbackSuccess: (data) => dispatch(setRoles(data)),
-  });
-  return data;
+  sendRequest(
+    {
+      url: "/roles",
+      method: METHODS.GET,
+      callbackSuccess: (data) => {
+        dispatch(setRoles(data));
+      },
+    },
+    dispatch
+  );
+};
+
+export const getUser = (data, history) => (dispatch) => {
+  sendRequest(
+    {
+      url: "/login",
+      method: METHODS.POST,
+      data: data,
+      redirect: "/",
+      callbackSuccess: (data) => {
+        console.log("gir : ", data);
+        dispatch(setUser(data));
+        localStorage.setItem("token", data.token);
+        showToast({
+          message: "WELCOME",
+          type: "success",
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: false,
+          transition: "Zoom",
+        });
+      },
+      callbackError: (error) => console.error("girdim:", error.message),
+    },
+    dispatch,
+    history
+  );
 };

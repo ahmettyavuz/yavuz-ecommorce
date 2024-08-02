@@ -6,7 +6,7 @@ import {
   requestError,
   requestStart,
   requestSuccess,
-} from "../store/actions/clientAction";
+} from "../components/store/actions/clientAction";
 import { useAuthToken } from "./useAuthToken";
 
 export const METHODS = {
@@ -37,7 +37,7 @@ const useAxios = () => {
 
     // Axios instance'ını oluştur
     const instance = axios.create({
-      baseURL: "https://nextgen-project.onrender.com/api/s11d3",
+      baseURL: "https://workintech-fe-ecommerce.onrender.com",
       timeout: 5000,
       headers,
     });

@@ -1,6 +1,13 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+/* import CryptoJS from "crypto-js"; */
 
 export const Header = () => {
+  const { name } = useSelector((store) => store.client.userInfo);
+
+  /*  const hash = CryptoJS.MD5(user.email);
+  const gravatarUrl = `https://www.gravatar.com/avatar/${hash}?s=20`; */
+
   return (
     <>
       <section className="text-sm max-md:pt-6 max-md:px-4">
@@ -55,16 +62,21 @@ export const Header = () => {
           </div>
           <div className="flex gap-5 text-[#23A6F0] max-md:text-black items-center max-md:text-2xl">
             <div className="max-md:hidden">
-              <i className="fa-regular fa-user"> </i>
-              <span> </span>
-              <Link className="hover:underline" to="/login">
-                {" "}
-                Login
-              </Link>
-              /
-              <Link className="hover:underline" to="/register">
-                Register
-              </Link>
+              {name === "" ? (
+                /* (<i className="fa-regular fa-user"> </i>) */ (
+                  <Link className="hover:underline" to="/login">
+                    {" "}
+                    Login
+                  </Link>
+                ) /
+                (
+                  <Link className="hover:underline" to="/register">
+                    Register
+                  </Link>
+                )
+              ) : (
+                /* (<img src={gravatarUrl} alt="" />) */ <p>{name}</p>
+              )}
             </div>
             <i className="fa-solid fa-magnifying-glass hover:opacity-75"></i>
             <i className="fa-solid fa-cart-shopping hover:opacity-75"></i>

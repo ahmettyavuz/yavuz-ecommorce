@@ -12,7 +12,7 @@ const client = {
   userInfo: {
     name: "",
     email: "",
-    password: "",
+    token: "",
     role_id: "",
   },
   addressList: [],
@@ -45,7 +45,7 @@ const clientReducer = (state = client, action) => {
         error: action.error,
       };
     case SET_USER:
-      return { ...state, userInfo: action.payload };
+      return { ...state, userInfo: { ...action.payload } };
     case SET_ROLES: // Action içinde yazdığımız methodda yazılan actıon.type başka reducer içinde de tanımlıysa hangisine fetch in hangisine gideceğini nerden biliyor.
       return { ...state, roles: action.payload };
     case SET_THEME:

@@ -2,10 +2,10 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { showToast } from "../util/ShowToast";
+import { showToast } from "../../util/ShowToast";
 import { useDispatch, useSelector } from "react-redux";
-import useAxios from "../../hooks/useAxios";
 import { getRoles } from "../../store/actions/clientAction";
+import { METHODS, sendRequest } from "../../util/axiosUtil";
 
 const formData = {
   name: "",
@@ -33,18 +33,7 @@ export const Register = () => {
     mode: "onChange",
   });
 
-  //const [roles, setRoles] = useState([]);
-
-  /* const {
-    data: roles,
-    sendRequest,
-    setData: setRoles,
-    error,
-    loading,
-    METHODS,
-  } = useAxios([]); */
-
-  const { roles } = useSelector((store) => store.client);
+  const roles = useSelector((store) => store.client.roles);
 
   const dispatch = useDispatch();
 
@@ -53,44 +42,34 @@ export const Register = () => {
   const role_id = watch("role_id");
 
   useEffect(() => {
-    dispatch(getRoles());
-    /* sendRequest({
-      url: "/roles",
-      method: METHODS.GET,
-    }); */
-
-    /*  axios
-      .get("https://workintech-fe-ecommerce.onrender.com/roles")
-      .then((response) => {
-        setRoles(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => console.error("Error fetching roles:", error)); */
+    if (roles.length === 0) {
+      dispatch(getRoles());
+    }
   }, [dispatch]);
 
   const onSubmit = (data) => {
-    const { confirmPassword, ...formDataToSend } = data;
+    const { confirmPassword, store, ...formDataToSend } = data;
     const filteredData =
-      role_id === 2
-        ? { ...formDataToSend, store: data.store }
-        : { ...formDataToSend };
+      role_id == 2 ? { ...formDataToSend, ...store } : { ...formDataToSend };
 
-    axios
-      .post("https://workintech-fe-ecommerce.onrender.com/signup", filteredData)
-      .then((response) => {
+    console.log("data: ", filteredData);
+
+    sendRequest({
+      url: "/signup",
+      method: METHODS.POST,
+      data: filteredData,
+      callbackSuccess: (data) => {
+        console.log("dataa: ", data);
         showToast({
-          message: response.data.message,
+          message: data.message,
           type: "warn",
           position: "top-center",
           autoClose: false,
           closeOnClick: false,
           transition: "Zoom",
         });
-        history.goBack();
-      })
-      .catch((error) => {
-        console.error("girdim:", error.message);
-        console.error("Error:", error);
+      },
+      callbackError: () =>
         showToast({
           message: "Doesnt registaration",
           type: "error",
@@ -98,8 +77,8 @@ export const Register = () => {
           autoClose: 5000,
           closeOnClick: false,
           transition: "Bounce",
-        });
-      });
+        }),
+    });
   };
 
   return (
