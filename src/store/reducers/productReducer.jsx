@@ -1,19 +1,16 @@
 import {
+  REQUEST_ERROR,
+  REQUEST_START,
+  REQUEST_SUCCESS,
+} from "../actions/clientAction";
+import {
   SET_CATEGORİES,
-  SET_FETCH_STATE,
   SET_FILTER,
   SET_LIMIT,
   SET_OFFSET,
   SET_PRODUCT_LİST,
   SET_TOTAL,
 } from "../actions/productActions";
-
-export const FETCH_STATES = {
-  NotFetched: "NOT_FETCHED",
-  Fetching: "FETCHING",
-  Fetched: "FETCHED",
-  FetchFailed: "FETCH_FAILED",
-};
 
 const product = {
   categories: [],
@@ -22,11 +19,30 @@ const product = {
   limit: 10,
   offset: null,
   filter: "",
-  fetchState: FETCH_STATES.NotFetched,
+  loading: false,
+  error: null,
 };
 
 const productReducer = (state = product, action) => {
   switch (action.type) {
+    case REQUEST_START:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case REQUEST_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
     case SET_PRODUCT_LİST:
       return { ...state, productList: [...state.productList, action.payload] };
     case SET_CATEGORİES:
@@ -39,8 +55,6 @@ const productReducer = (state = product, action) => {
       return { ...state, offset: action.payload };
     case SET_FILTER:
       return { ...state, filter: action.payload };
-    case SET_FETCH_STATE:
-      return { ...state, fetchState: action.payload };
     default:
       return state;
   }

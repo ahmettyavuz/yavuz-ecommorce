@@ -3,8 +3,9 @@ import { useForm, Controller } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { showToast } from "../util/ShowToast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useAxios from "../../hooks/useAxios";
+import { getRoles } from "../../store/actions/clientAction";
 
 const formData = {
   name: "",
@@ -34,24 +35,29 @@ export const Register = () => {
 
   //const [roles, setRoles] = useState([]);
 
-  const {
+  /* const {
     data: roles,
     sendRequest,
     setData: setRoles,
     error,
     loading,
     METHODS,
-  } = useAxios([]);
+  } = useAxios([]); */
+
+  const { roles } = useSelector((store) => store.client);
+
+  const dispatch = useDispatch();
 
   const history = useHistory();
   const password = watch("password");
   const role_id = watch("role_id");
 
   useEffect(() => {
-    sendRequest({
+    dispatch(getRoles());
+    /* sendRequest({
       url: "/roles",
       method: METHODS.GET,
-    });
+    }); */
 
     /*  axios
       .get("https://workintech-fe-ecommerce.onrender.com/roles")
@@ -60,7 +66,7 @@ export const Register = () => {
         console.log(response.data);
       })
       .catch((error) => console.error("Error fetching roles:", error)); */
-  }, []);
+  }, [dispatch]);
 
   const onSubmit = (data) => {
     const { confirmPassword, ...formDataToSend } = data;

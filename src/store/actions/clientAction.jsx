@@ -5,6 +5,14 @@ export const SET_ROLES = "SET_ROLES";
 export const SET_THEME = "SET_THEME";
 export const SET_LANGUAGE = "SET_LANGUAGE";
 
+export const REQUEST_START = "REQUEST_START";
+export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
+export const REQUEST_ERROR = "REQUEST_ERROR";
+
+export const requestStart = () => ({ type: REQUEST_START });
+export const requestSuccess = () => ({ type: REQUEST_SUCCESS });
+export const requestError = (error) => ({ type: REQUEST_ERROR, error });
+
 export const setUser = (data) => {
   return { type: SET_USER, payload: data };
 };
@@ -20,11 +28,11 @@ export const setLanguage = (data) => {
 };
 
 export const getRoles = () => (dispatch) => {
-  const { data, sendRequest, setData, error, loading, METHODS } = useAxios([]);
+  const { sendRequest, METHODS } = useAxios();
   sendRequest({
     url: "/roles",
     method: METHODS.GET,
-    callbackSuccess: dispatch(setRoles(data)),
+    callbackSuccess: (data) => dispatch(setRoles(data)),
   });
   return data;
 };

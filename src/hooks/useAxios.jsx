@@ -1,6 +1,13 @@
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+// Aksiyonları doğru bir şekilde import edin// Token selector'ını import edin
+import {
+  requestError,
+  requestStart,
+  requestSuccess,
+} from "../store/actions/clientAction";
+import { useAuthToken } from "./useAuthToken";
 
 export const METHODS = {
   POST: "post",
@@ -9,22 +16,10 @@ export const METHODS = {
   DELETE: "delete",
 };
 
-export default function useAxios({
-  initialData,
-  baseURL = "https://workintech-fe-ecommerce.onrender.com",
-}) {
-  const [data, setData] = useState(initialData);
-  console.log("data:", data);
-  console.log("baseURL:", baseURL);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
+const useAxios = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
-  const instance = axios.create({
-    baseURL,
-    timeout: 5000,
-    // headers: {'authentication': 'foobar'}
-  });
+  const token = useAuthToken(); // Güncel token'ı almak için selector'ı kullan
 
   const sendRequest = ({
     url,
@@ -33,35 +28,34 @@ export default function useAxios({
     redirect = null,
     callbackSuccess = null,
     callbackError = null,
+    authentication = false,
   }) => {
-    setLoading(true);
-    console.log(
-      "sendRequest starts: ",
-      "url: ",
-      url,
-      "method:  ",
-      method,
-      "data: ",
-      data,
-      "sendRequest: ",
-      loading
-    );
+    // Authentication başlığı ayarla
+    const headers = authentication
+      ? { Authorization: "Bearer ${token}" } // Güncel token'ı kullan
+      : {};
+
+    // Axios instance'ını oluştur
+    const instance = axios.create({
+      baseURL: "https://nextgen-project.onrender.com/api/s11d3",
+      timeout: 5000,
+      headers,
+    });
+
+    dispatch(requestStart());
     instance[method](url, data === null ? null : data)
-      .then(function (response) {
-        setData(response.data);
-        setLoading(false);
-        setError(null);
-        callbackSuccess && callbackSuccess();
+      .then((response) => {
+        dispatch(requestSuccess());
+        callbackSuccess && callbackSuccess(response.data);
         redirect && history.push(redirect);
-        console.log("sendRequest response: ", response, "loadding: ", loading);
       })
-      .catch(function (error) {
-        console.log("sendRequest error: ", error);
-        callbackError && callbackError();
-        setError(error.message);
-        setLoading(false);
+      .catch((error) => {
+        dispatch(requestError(error.message));
+        callbackError && callbackError(error.message);
       });
   };
 
-  return { data, sendRequest, setData, error, loading, METHODS };
-}
+  return { sendRequest, METHODS };
+};
+
+export default useAxios;
