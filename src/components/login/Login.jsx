@@ -1,15 +1,13 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { showToast } from "../../util/ShowToast";
-import { METHODS, sendRequest } from "../../util/axiosUtil";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../store/actions/clientAction";
 
 const formData = {
   email: "",
   password: "",
+  rememberMe: false,
 };
 
 export const Login = () => {
@@ -26,42 +24,9 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
+    console.log("Remember Me:", data.rememberMe);
     dispatch(getUser(data, history));
   };
-  /* sendRequest({
-      url: "/login",
-      method: METHODS.POST,
-      data: data,
-      callbackSuccess: () =>
-        showToast({
-          message: "WELCOME",
-          type: "success",
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: false,
-          transition: "Zoom",
-        }),
-      callbackError: (error) => console.error("girdim:", error.message),
-    }); */
-
-  /*     axios
-      .post("https://workintech-fe-ecommerce.onrender.com/login", data)
-      .then((response) => {
-        console.log("data :", response.data);
-        showToast({
-          message: "WELCOME",
-          type: "success",
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: false,
-          transition: "Zoom",
-        });
-        history.goBack();
-      })
-      .catch((error) => {
-        console.error("girdim:", error.message);
-      });
-  */
 
   return (
     <section className="flex justify-center py-10">
@@ -128,6 +93,18 @@ export const Login = () => {
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}
+          </div>
+
+          <div className="w-full flex items-center">
+            <input
+              type="checkbox"
+              id="rememberMe"
+              className="mr-2"
+              {...register("rememberMe")}
+            />
+            <label htmlFor="rememberMe" className="font-medium text-gray-700">
+              Remember Me
+            </label>
           </div>
 
           <button

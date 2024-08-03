@@ -54,31 +54,35 @@ export const Register = () => {
 
     console.log("data: ", filteredData);
 
-    sendRequest({
-      url: "/signup",
-      method: METHODS.POST,
-      data: filteredData,
-      callbackSuccess: (data) => {
-        console.log("dataa: ", data);
-        showToast({
-          message: data.message,
-          type: "warn",
-          position: "top-center",
-          autoClose: false,
-          closeOnClick: false,
-          transition: "Zoom",
-        });
+    sendRequest(
+      {
+        url: "/signup",
+        method: METHODS.POST,
+        data: filteredData,
+        redirect: "goBack",
+        callbackSuccess: (data) => {
+          console.log("dataa: ", data);
+          showToast({
+            message: data.message,
+            type: "warn",
+            position: "top-center",
+            autoClose: false,
+            closeOnClick: false,
+            transition: "Zoom",
+          });
+        },
+        callbackError: () =>
+          showToast({
+            message: "Doesnt registaration",
+            type: "error",
+            position: "top-right",
+            autoClose: 5000,
+            closeOnClick: false,
+            transition: "Bounce",
+          }),
       },
-      callbackError: () =>
-        showToast({
-          message: "Doesnt registaration",
-          type: "error",
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: false,
-          transition: "Bounce",
-        }),
-    });
+      history
+    );
   };
 
   return (

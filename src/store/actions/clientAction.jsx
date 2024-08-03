@@ -41,28 +41,58 @@ export const getRoles = () => (dispatch) => {
     dispatch
   );
 };
+export const getUserWithToken = (token) => (dispatch) => {
+  sendRequest(
+    {
+      url: "/verify",
+      method: METHODS.GET,
+      callbackSuccess: (data) => {
+        dispatch(setUser(data));
+      },
+      callbackError: (err) => {
+        console.log("verfy err: ", err);
+        localStorage.removeItem("token");
+      },
+      authentication: true,
+      token: token,
+    },
+    dispatch
+  );
+};
 
 export const getUser = (data, history) => (dispatch) => {
+  const { rememberMe, ...sendData } = data;
   sendRequest(
     {
       url: "/login",
       method: METHODS.POST,
-      data: data,
-      redirect: "/",
+      data: sendData,
+      redirect: "goBack",
       callbackSuccess: (data) => {
         console.log("gir : ", data);
         dispatch(setUser(data));
-        localStorage.setItem("token", data.token);
+        rememberMe && localStorage.setItem("token", data.token);
         showToast({
           message: "WELCOME",
           type: "success",
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 2000,
           closeOnClick: false,
           transition: "Zoom",
+          limit: 1,
         });
       },
-      callbackError: (error) => console.error("girdim:", error.message),
+      callbackError: () => {
+        showToast({
+          message: "Your email or password is incorrect.",
+          type: "error",
+          position: "top-center",
+          autoClose: 5000,
+          closeOnClick: false,
+          transition: "Bounce",
+          limit: 1,
+        });
+      },
     },
     dispatch,
     history

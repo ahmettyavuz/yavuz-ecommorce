@@ -10,7 +10,7 @@ import {
   SET_OFFSET,
   SET_PRODUCT_LİST,
   SET_TOTAL,
-} from "../actions/productActions";
+} from "../actions/productAction";
 
 const product = {
   categories: [],

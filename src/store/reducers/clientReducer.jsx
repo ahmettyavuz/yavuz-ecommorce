@@ -8,11 +8,11 @@ import {
   SET_USER,
 } from "../actions/clientAction";
 
-const client = {
+export const client = {
   userInfo: {
     name: "",
     email: "",
-    token: "",
+    token: localStorage.getItem("token"),
     role_id: "",
   },
   addressList: [],
