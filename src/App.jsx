@@ -7,25 +7,22 @@ import { PageContent } from "./layout/PageContent";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserWithToken } from "./store/actions/clientAction";
 import { useEffect } from "react";
+import Spinner from "./components/others/Spinner";
 
 function App() {
-  const token = useSelector((state) => state.client.userInfo.token);
   const loading = useSelector((state) => state.client.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    token && dispatch(getUserWithToken(token));
-  }, []);
-
-  console.log("loading: ", loading);
+    dispatch(getUserWithToken());
+  }, [dispatch]);
 
   if (loading) {
     return (
-      <>
-        <div className="flex justify-center items-center min-h-screen">
-          <div className="loader">Loading...</div>
-        </div>
-      </>
+      <Spinner
+        svgCss="w-16 h-16"
+        divCss="flex justify-center items-center min-h-screen"
+      />
     );
   }
 

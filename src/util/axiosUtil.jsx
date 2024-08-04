@@ -1,9 +1,4 @@
 import axios from "axios";
-import {
-  requestError,
-  requestStart,
-  requestSuccess,
-} from "../store/actions/clientAction";
 
 // API İstek Metodlarını Tanımla
 export const METHODS = {
@@ -23,11 +18,10 @@ export const sendRequest = (
     callbackSuccess = null,
     callbackError = null,
     authentication = false,
-    token,
   },
-  dispatch = null,
   history = null
 ) => {
+  const token = authentication ? localStorage.getItem("token") : undefined;
   const headers = authentication ? { Authorization: token } : {};
 
   const instance = axios.create({
@@ -36,10 +30,8 @@ export const sendRequest = (
     headers,
   });
 
-  dispatch && dispatch(requestStart());
   instance[method](url, data === null ? null : data)
     .then((response) => {
-      dispatch && dispatch(requestSuccess());
       callbackSuccess && callbackSuccess(response.data);
       redirect === "goBack"
         ? history.length > 1
@@ -50,7 +42,6 @@ export const sendRequest = (
           : null;
     })
     .catch((error) => {
-      dispatch && dispatch(requestError(error.message));
-      callbackError && callbackError(error.message);
+      callbackError && callbackError(error);
     });
 };

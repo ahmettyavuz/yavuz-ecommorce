@@ -6,8 +6,8 @@ import {
 import { thunk } from "redux-thunk";
 import logger from "redux-logger";
 import productReducer from "./reducers/productReducer";
-import clientReducer from "./reducers/clientReducer";
 import shoppingCartReducer from "./reducers/shoppingCartReducer";
+import clientReducer from "./reducers/clientReducer";
 
 const reducers = combineReducers({
   product: productReducer,

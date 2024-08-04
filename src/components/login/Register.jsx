@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { showToast } from "../../util/ShowToast";
 import { useDispatch, useSelector } from "react-redux";
 import { getRoles } from "../../store/actions/clientAction";
@@ -45,7 +44,7 @@ export const Register = () => {
     if (roles.length === 0) {
       dispatch(getRoles());
     }
-  }, [dispatch]);
+  }, [dispatch, roles]);
 
   const onSubmit = (data) => {
     const { confirmPassword, store, ...formDataToSend } = data;

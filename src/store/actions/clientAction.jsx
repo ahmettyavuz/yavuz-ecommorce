@@ -1,19 +1,20 @@
 import { showToast } from "../../util/ShowToast";
 import { METHODS } from "../../util/axiosUtil";
 import { sendRequest } from "../../util/axiosUtil";
+import { client } from "../reducers/clientReducer";
 
 export const SET_USER = "SET_USER";
 export const SET_ROLES = "SET_ROLES";
 export const SET_THEME = "SET_THEME";
 export const SET_LANGUAGE = "SET_LANGUAGE";
 
-export const REQUEST_START = "REQUEST_START";
-export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
-export const REQUEST_ERROR = "REQUEST_ERROR";
+export const REQUEST_START_CLİENT = "REQUEST_START_CLİENT";
+export const REQUEST_SUCCESS_CLİENT = "REQUEST_SUCCESS_CLİENT";
+export const REQUEST_ERROR_CLİENT = "REQUEST_ERROR_CLİENT";
 
-export const requestStart = () => ({ type: REQUEST_START });
-export const requestSuccess = () => ({ type: REQUEST_SUCCESS });
-export const requestError = (error) => ({ type: REQUEST_ERROR, error });
+export const requestStart = () => ({ type: REQUEST_START_CLİENT });
+export const requestSuccess = () => ({ type: REQUEST_SUCCESS_CLİENT });
+export const requestError = (error) => ({ type: REQUEST_ERROR_CLİENT, error });
 
 export const setUser = (data) => {
   return { type: SET_USER, payload: data };
@@ -30,6 +31,7 @@ export const setLanguage = (data) => {
 };
 
 export const getRoles = () => (dispatch) => {
+  dispatch(requestStart());
   sendRequest(
     {
       url: "/roles",
@@ -37,31 +39,40 @@ export const getRoles = () => (dispatch) => {
       callbackSuccess: (data) => {
         dispatch(setRoles(data));
       },
-    },
-    dispatch
-  );
-};
-export const getUserWithToken = (token) => (dispatch) => {
-  sendRequest(
-    {
-      url: "/verify",
-      method: METHODS.GET,
-      callbackSuccess: (data) => {
-        dispatch(setUser(data));
+      callbackError: (error) => {
+        dispatch(requestError(error.message));
       },
-      callbackError: (err) => {
-        console.log("verfy err: ", err);
-        localStorage.removeItem("token");
-      },
-      authentication: true,
-      token: token,
     },
     dispatch
   );
 };
 
+export const getUserWithToken = () => (dispatch) => {
+  const token = localStorage.getItem("token");
+  token
+    ? (dispatch(requestStart()),
+      sendRequest({
+        url: "/verify",
+        method: METHODS.GET,
+        callbackSuccess: (data) => {
+          dispatch(setUser(data));
+        },
+        callbackError: (error) => {
+          dispatch(requestError(error.message));
+          error.response &&
+            error.response.status === 401 &&
+            localStorage.removeItem("token");
+          dispatch(setUser(client.userInfo));
+        },
+        authentication: true,
+      }))
+    : ((client.userInfo.loading = false),
+      dispatch(setUser(client.userInfo.loading)));
+};
+
 export const getUser = (data, history) => (dispatch) => {
   const { rememberMe, ...sendData } = data;
+  dispatch(requestStart());
   sendRequest(
     {
       url: "/login",
@@ -69,7 +80,6 @@ export const getUser = (data, history) => (dispatch) => {
       data: sendData,
       redirect: "goBack",
       callbackSuccess: (data) => {
-        console.log("gir : ", data);
         dispatch(setUser(data));
         rememberMe && localStorage.setItem("token", data.token);
         showToast({
@@ -82,7 +92,8 @@ export const getUser = (data, history) => (dispatch) => {
           limit: 1,
         });
       },
-      callbackError: () => {
+      callbackError: (error) => {
+        dispatch(requestError(error.message));
         showToast({
           message: "Your email or password is incorrect.",
           type: "error",
@@ -94,7 +105,6 @@ export const getUser = (data, history) => (dispatch) => {
         });
       },
     },
-    dispatch,
     history
   );
 };

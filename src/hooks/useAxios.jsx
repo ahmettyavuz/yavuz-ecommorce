@@ -32,7 +32,7 @@ const useAxios = () => {
   }) => {
     // Authentication başlığı ayarla
     const headers = authentication
-      ? { Authorization: "Bearer ${token}" } // Güncel token'ı kullan
+      ? { Authorization: `Bearer ${token}` } // Güncel token'ı kullan
       : {};
 
     // Axios instance'ını oluştur
