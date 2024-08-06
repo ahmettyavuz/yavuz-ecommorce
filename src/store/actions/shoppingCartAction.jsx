@@ -1,4 +1,6 @@
 export const SET_CART = "SET_CART";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_TO_CART = "REMOVE_TO_CART";
 export const SET_PAYMENT = "SET_PAYMENT";
 export const SET_ADDRESS = "SET_ADDRESS";
 
@@ -20,4 +22,10 @@ export const setPayment = (data) => {
 
 export const setAddress = (data) => {
   return { type: SET_ADDRESS, payload: data };
+};
+export const addToCart = (data) => {
+  return { type: ADD_TO_CART, payload: data };
+};
+export const removeToCart = (data) => {
+  return { type: REMOVE_TO_CART, payload: data };
 };

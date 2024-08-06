@@ -1,6 +1,11 @@
 import { ProductCard } from "../product/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, setFilter } from "../../store/actions/productAction";
+import {
+  getProducts,
+  setFilter,
+  setLimit,
+  setOffset,
+} from "../../store/actions/productAction";
 import { useEffect, useState } from "react";
 import Spinner from "../others/Spinner";
 import { useLocation } from "react-router-dom";
@@ -14,202 +19,230 @@ const selectionSort = [
 ];
 
 export const ProductsShop = () => {
-  const { products, loading, filter, total } = useSelector(
+  const { products, loading, filter, total, limit, offset } = useSelector(
     (store) => store.product
   );
   const [sort, setSort] = useState(selectionSort[0].value);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(Math.ceil(total / 12));
+  const [totalPage, setTotalPage] = useState(Math.ceil(total / limit));
   const [disabledNext, setDisabledNext] = useState(false);
   const [disabledPrev, setDisabledPrev] = useState(true);
+  const [searchInput, setSearchInput] = useState(filter); // State for input value
   const location = useLocation();
   const dispatch = useDispatch();
-  console.log("products: ", products);
 
   const pageLimit = 5;
 
   useEffect(() => {
-    if (currentPage == totalPage) {
-      setDisabledNext(!disabledNext);
-    } else if (currentPage == 1) {
-      setDisabledPrev(!disabledPrev);
-    }
-  }, [currentPage]);
+    dispatch(setOffset(0));
+    dispatch(setFilter(""));
+    setSearchInput("");
+    setCurrentPage(1);
+    const parts = location.pathname?.split("/");
+    const category = parts.length >= 3 ? parts.pop() : null;
+    dispatch(
+      getProducts({
+        category,
+        sort,
+        limit: 12,
+        updateLimit: true,
+      })
+    );
+  }, [dispatch, location.pathname, sort]);
+
+  useEffect(() => {
+    setDisabledPrev(currentPage === 1);
+    setDisabledNext(currentPage === totalPage);
+  }, [currentPage, totalPage]);
 
   useEffect(() => {
     setTotalPage(Math.ceil(total / 12));
+    setSort(selectionSort[0].value); //total değişimine bağlanmamalı ama sort değişiminede bağlanmıyor daha sonra düzelt.
   }, [total]);
 
   useEffect(() => {
     const parts = location.pathname?.split("/");
     const category = parts.length >= 3 ? parts.pop() : null;
+    const needOffset = (currentPage - 1) * limit;
 
-    dispatch(
-      getProducts({ category: category, sort: sort, filter: null, limit: 12 })
-    );
-  }, [dispatch, location.pathname, sort]);
+    const currentLimit =
+      needOffset > offset
+        ? needOffset - offset + limit
+        : needOffset == offset
+          ? limit
+          : 0; //needOffset <offSet durumu 2 dal'a ayrılabilir.
 
-  /*   useEffect(() => {
-    if (location.pathname === "/shop") setIteratableProduct([...products]);
-  }, [location.pathname]);
- */
-  const handleClick = () => {
-    const parts = location.pathname?.split("/");
-    const category = parts.length >= 3 ? parts.pop() : null;
+    console.log("offSet :", offset);
+    currentLimit != 0 &&
+      dispatch(
+        getProducts({
+          category,
+          sort,
+          filter: filter,
+          limit: currentLimit,
+          offset: offset,
+        })
+      );
+  }, [currentPage, filter]);
 
-    dispatch(
-      getProducts({ category: category, sort: sort, filter: filter, limit: 12 })
-    );
+  const handleClick = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "search") {
+      dispatch(setFilter(searchInput)); // Update filter on search click
+      setCurrentPage(1);
+      dispatch(setOffset(0));
+    } else if (name === "prev") {
+      setCurrentPage((prev) => Math.max(prev - 1, 1));
+    } else if (name === "next") {
+      setCurrentPage((prev) => Math.min(prev + 1, totalPage));
+    } else if (name === "page") {
+      setCurrentPage(parseInt(value, 10));
+    } else if (name === "jumpBack") {
+      setCurrentPage((prev) => Math.max(prev - pageLimit, 1));
+    } else if (name === "jumpForward") {
+      setCurrentPage((prev) => Math.min(prev + pageLimit, totalPage));
+    }
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     const { name, value } = e.target;
     if (name === "select") {
       setSort(value);
     } else if (name === "filter") {
-      dispatch(setFilter(value));
-    } else if (name === "prev") {
-      setCurrentPage(currentPage - 1);
-    } else if (name === "next") {
-      setCurrentPage(currentPage + 1);
+      setSearchInput(value); // Update search input state
     }
   };
 
   const getPaginationGroup = () => {
-    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+    const start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
     return new Array(pageLimit)
       .fill()
       .map((_, idx) => start + idx + 1)
       .filter((page) => page <= totalPage);
   };
 
-  console.log("total : ", total);
-  console.log("total page: ", totalPage, Math.ceil(total / 12));
-  console.log("page: ", currentPage);
-  console.log("prevdis : ", disabledPrev, "nextdis : ", disabledNext);
-  console.log("disable: ", currentPage == 1, currentPage == totalPage);
-
   return (
-    <>
-      <main className="flex justify-center pb-20 pt-10 max-sm:py-10 max-md:pb-15">
-        <div className="basis-[90%] flex flex-col text-center">
-          <div className="flex max-md:flex-col justify-between max-md:justify-center px-10 items-center flex-wrap gap-10 pb-10">
-            <h6 className="font-bold text-sm text-secondTextColor">
-              Showing all 12 results
-            </h6>
-            <div className="flex text-sm gap-3 items-center">
-              <h6 className="font-bold text-sm text-secondTextColor">Views:</h6>
-              <div className="border-2 border-solid border-lightGray rounded-md py-3 px-5">
-                <i className="fa-brands fa-microsoft"></i>
-              </div>
-              <div className="border-2 border-solid border-lightGray rounded-md py-3 px-5">
-                <i className="fa-solid fa-list"></i>
-              </div>
+    <main className="flex justify-center pb-20 pt-10 max-sm:py-10 max-md:pb-15">
+      <div className="basis-[90%] flex flex-col text-center">
+        <div className="flex max-md:flex-col justify-between max-md:justify-center px-10 items-center flex-wrap gap-10 pb-10">
+          <h6 className="font-bold text-sm text-secondTextColor">
+            Showing all {products.length} results
+          </h6>
+          <div className="flex text-sm gap-3 items-center">
+            <h6 className="font-bold text-sm text-secondTextColor">Views:</h6>
+            <div className="border-2 border-solid border-lightGray rounded-md py-3 px-5">
+              <i className="fa-brands fa-microsoft"></i>
             </div>
-            <div className="flex max-sm:flex-col gap-4 max-sm:gap-8 max-lg:justify-self-end justify-center items-center ml-auto max-md:m-auto">
-              <select
-                className="bg-bgInput font-normal text-sm text-secondTextColor py-2 rounded-md pl-4 border-2 border-borderGray w-40 "
-                name="select"
-                value={sort}
-                onChange={(e) => handleChange(e)}
-              >
-                {selectionSort.map((select, index) => (
-                  <>
-                    <option key={index} value={select.value}>
-                      {select.label}
-                    </option>
-                  </>
-                ))}
-              </select>
-              <div className="flex gap-1">
-                <input
-                  type="text"
-                  name="filter"
-                  className="border border-[#DADADA] py-2 rounded-md bg-[#F5F5F5] text-black p-2 w-60 max-xl:w-40 max-md:w-30"
-                  placeholder="Search"
-                  onChange={handleChange}
-                  value={filter}
-                ></input>
-                {/*                 <button onClick={cleanFilter}>
-                  <i className="fa-solid fa-x"></i>
-                </button> */}
-
-                <button
-                  className="font-bold text-sm text-white tracking-wider bg-primary px-6 py-3 rounded-md hover:opacity-70"
-                  onClick={handleClick}
-                >
-                  Search
-                </button>
-              </div>
+            <div className="border-2 border-solid border-lightGray rounded-md py-3 px-5">
+              <i className="fa-solid fa-list"></i>
             </div>
           </div>
-          {!loading ? (
-            <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-              {products?.map((item) => (
-                <ProductCard
-                  key={item.id}
-                  item={item}
-                  cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
-                  colors={true}
-                />
+          <div className="flex max-sm:flex-col gap-4 max-sm:gap-8 max-lg:justify-self-end justify-center items-center ml-auto max-md:m-auto">
+            <select
+              className="bg-bgInput font-normal text-sm text-secondTextColor py-2 rounded-md pl-4 border-2 border-borderGray w-40"
+              name="select"
+              value={sort}
+              onChange={handleChange}
+            >
+              {selectionSort.map((select, index) => (
+                <option key={index} value={select.value}>
+                  {select.label}
+                </option>
               ))}
+            </select>
+            <div className="flex gap-1">
+              <input
+                type="text"
+                name="filter"
+                className="border border-[#DADADA] py-2 rounded-md bg-[#F5F5F5] text-black p-2 w-60 max-xl:w-40 max-md:w-30"
+                placeholder="Search"
+                onChange={handleChange}
+                value={searchInput} // Bind input to searchInput state
+              />
+              <button
+                name="search"
+                className="font-bold text-sm text-white tracking-wider bg-primary px-6 py-3 rounded-md hover:opacity-70"
+                onClick={handleClick}
+              >
+                Search
+              </button>
             </div>
-          ) : (
-            <Spinner divCss="self-center mb-6" svgCss="w-14 h-14" />
-          )}
-          <div className="text-primary w-[313px] h-[74px] flex mx-auto border-2 border-lightGray rounded-md">
-            <button
-              name="prev"
-              className="basis-[33%] border-r-2 border-lightGray cursor-pointer hover:bg-primary hover:text-white"
-              /* onClick={() => setCurrentPage(1)} */
-              onClick={handleChange}
-              disabled={disabledPrev}
-            >
-              Prev
-            </button>
-            {currentPage > pageLimit && (
-              <button
-                className="basis-[22%] border-r-2 border-lightGray cursor-pointer hover:bg-primary hover:text-white"
-                onClick={() => setCurrentPage(currentPage - pageLimit)}
-              >
-                ...
-              </button>
-            )}
-            {getPaginationGroup().map((pageNumber) => (
-              <button
-                key={pageNumber}
-                className={`basis-[22%] border-r-2 border-lightGray cursor-pointer hover:bg-primary hover:text-white ${
-                  currentPage === pageNumber ? "bg-primary text-white" : ""
-                }`}
-                onClick={() => setCurrentPage(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            ))}
-            {totalPage > pageLimit && currentPage <= totalPage - pageLimit && (
-              <button
-                className="basis-[22%] border-r-2 border-lightGray cursor-pointer hover:bg-primary hover:text-white"
-                onClick={() => setCurrentPage(currentPage + pageLimit)}
-              >
-                ...
-              </button>
-            )}
-            <button
-              name="next"
-              className="basis-[33%] hover:bg-primary hover:text-white"
-              /* onClick={() => {
-                console.log("girdim");
-                setCurrentPage(currentPage + 1);
-              }} */
-              onClick={handleChange}
-              disabled={disabledNext}
-            >
-              Next
-            </button>
           </div>
         </div>
-      </main>
-    </>
+        {total === 0 && !loading ? (
+          <p className="font-bold text-4xl mt-10 text-center">
+            Not found product
+          </p>
+        ) : (
+          <>
+            {!loading ? (
+              <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
+                {products
+                  ?.slice((currentPage - 1) * limit, currentPage * limit)
+                  ?.map((item) => (
+                    <ProductCard
+                      key={item.id}
+                      item={item}
+                      cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
+                      colors={true}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <Spinner divCss="self-center mb-6" svgCss="w-14 h-14" />
+            )}
+            <div className="text-primary w-[313px] h-[74px] flex mx-auto border-2 border-lightGray rounded-md">
+              <button
+                name="prev"
+                className={`basis-[33%] border-r-2 border-lightGray cursor-pointer ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
+                onClick={handleClick}
+                disabled={disabledPrev}
+              >
+                Prev
+              </button>
+              {currentPage > pageLimit && (
+                <button
+                  name="jumpBack"
+                  className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
+                  onClick={handleClick}
+                >
+                  ...
+                </button>
+              )}
+              {getPaginationGroup().map((pageNumber) => (
+                <button
+                  key={pageNumber}
+                  name="page"
+                  value={pageNumber}
+                  className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${currentPage === pageNumber ? "bg-primary text-white" : ""} ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
+                  onClick={handleClick}
+                >
+                  {pageNumber}
+                </button>
+              ))}
+              {totalPage > pageLimit &&
+                currentPage <= totalPage - pageLimit && (
+                  <button
+                    name="jumpForward"
+                    className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${!disabledNext ? "hover:bg-primary hover:text-white" : ""}`}
+                    onClick={handleClick}
+                  >
+                    ...
+                  </button>
+                )}
+              <button
+                name="next"
+                className={`basis-[33%] cursor-pointer ${!disabledNext ? "hover:bg-primary hover:text-white" : ""}`}
+                onClick={handleClick}
+                disabled={disabledNext}
+              >
+                Next
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </main>
   );
 };

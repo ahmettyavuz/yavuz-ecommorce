@@ -1,16 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryCard from "./CategoryCard";
-import { getCategories } from "../../store/actions/productAction";
+import { getCategories } from "../../store/actions/globalAction";
 import Spinner from "../others/Spinner";
 
 function Categories() {
-  const { categories, loading } = useSelector((store) => store.product);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (categories.length === 0) dispatch(getCategories());
-  }, [dispatch]);
+  const { categories, loading } = useSelector((store) => store.global);
 
   return (
     <div className="flex bg-purple-200 px-5 py-3 gap-5">
