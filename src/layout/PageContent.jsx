@@ -40,6 +40,9 @@ export const PageContent = () => {
         <Route path="/shopping-cart">
           <ShoppingCartPage />
         </Route>
+        <Route path="/creat-order">
+          <ShoppingCartPage />
+        </Route>
       </Switch>
     </>
   );
