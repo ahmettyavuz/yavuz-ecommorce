@@ -37,7 +37,7 @@ const ShoppingCartPage = () => {
             ))}
           </div>
 
-          <div className="w-[350px]  max-lg:w-[30px] max-md:w-[350px]">
+          <div className="w-[350px]  max-lg:w-[300px] max-md:w-[350px]">
             <div className="border-2 border-gray-200 rounded-md p-4">
               <h1 className="pb-4 text-2xl max-lg:text-xl">Sipariş Özeti</h1>
               <div className="flex justify-between">
@@ -69,7 +69,10 @@ const ShoppingCartPage = () => {
               </p>
               İNDİRİM KODU GİR
             </button>
-            <Link className="block basis-1/2 bg-orange-500 text-center border-[1px] hover:scale-105 max-md:text-sm hover:opacity-85 border-gray-200  text-white rounded-md py-2">
+            <Link
+              to="create-order"
+              className="block basis-1/2 bg-orange-500 text-center border-[1px] hover:scale-105 max-md:text-sm hover:opacity-85 border-gray-200  text-white rounded-md py-2"
+            >
               Siparişi Tamamla
             </Link>
           </div>
