@@ -1,5 +1,3 @@
-import img from "../../assets/ShopContainer-3.jpg";
-
 function ShoppingCart({ product }) {
   console.log();
   return (
@@ -23,7 +21,7 @@ function ShoppingCart({ product }) {
             count:{product.sell_count}
           </p>
           <p className="text-base text-gray-500 max-md:text-sm max-sm:text-sm">
-            ${(product?.price * 0.8).toFixed(2)}
+            ${(product.price * product.sell_count * 0.8).toFixed(2)}
           </p>
         </div>
       </div>

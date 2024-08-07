@@ -45,7 +45,7 @@ export const ProductDetail = () => {
     } else if (name === "back") {
       history.goBack();
     } else if (name === "basket") {
-      dispatch(addToCart(product));
+      dispatch(addToCart({ ...product }));
     } else {
       console.log(e.target.dataset.value + "girdim");
       setActiveIndex(Number(e.currentTarget.dataset.value));

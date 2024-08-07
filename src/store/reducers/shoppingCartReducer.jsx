@@ -1,5 +1,6 @@
 import {
   ADD_TO_CART,
+  DECREMENT_TO_CART,
   REMOVE_TO_CART,
   REQUEST_ERROR_SHOP,
   REQUEST_START_SHOP,
@@ -57,6 +58,20 @@ const shoppingCartReducer = (state = { ...order }, action) => {
         loading: false,
         error: null,
         cart: newCart,
+      };
+    }
+    case DECREMENT_TO_CART: {
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        cart: state.cart.filter((product) => {
+          if (product.id === action.payload) {
+            product.sell_count -= 1;
+            return product.sell_count > 0;
+          }
+          return true;
+        }),
       };
     }
 
