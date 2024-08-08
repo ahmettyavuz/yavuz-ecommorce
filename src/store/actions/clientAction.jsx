@@ -12,11 +12,10 @@ export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
 export const REMOVE_CREDIT_CARD = "REMOVE_CREDIT_CARD";
 
 export const REQUEST_START_CLİENT = "REQUEST_START_CLİENT";
-export const REQUEST_SUCCESS_CLİENT = "REQUEST_SUCCESS_CLİENT";
 export const REQUEST_ERROR_CLİENT = "REQUEST_ERROR_CLİENT";
 
 export const requestStart = () => ({ type: REQUEST_START_CLİENT });
-export const requestSuccess = () => ({ type: REQUEST_SUCCESS_CLİENT });
+
 export const requestError = (error) => ({ type: REQUEST_ERROR_CLİENT, error });
 
 export const setUser = (data) => {
@@ -104,7 +103,8 @@ export const getUser = (data, history) => (dispatch) => {
 };
 
 export const getAddress = () => (dispatch) => {
-  dispatch(requestStart());
+  // dispatch(requestStart());
+
   sendRequest({
     url: "/user/address",
     method: METHODS.GET,

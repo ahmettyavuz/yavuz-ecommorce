@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { CreditCardCart } from "./CreditCardCart";
-import { CreditCardForm } from "../form/CreditCardFrom";
 
 const installments = [
   { id: 1, installmentCount: "Tek Çekim", monthlyPayment: 100 },
@@ -9,22 +8,20 @@ const installments = [
 ];
 
 export const CreditCardContainer = () => {
-  const [toggle, setToggle] = useState(false);
+  const [visibleForm, setVisibleForm] = useState(false);
   const [checkTaksit, setCheckTaksit] = useState(installments[0].id);
 
   const handleClick = (e) => {
-    const name = e.target.name;
+    const name = e.target.name || e.target.getAttribute("data-name");
     if (name === "addCreditCard") {
-      setToggle(!toggle);
+      setVisibleForm(!visibleForm);
+    } else if (name === "exit" || name === "space") {
+      setVisibleForm(false);
     }
   };
 
-  const handleRadioChange = (e) => {
+  const handleChange = (e) => {
     setCheckTaksit(Number(e.target.value));
-  };
-
-  const handleClose = () => {
-    setToggle(false);
   };
 
   return (
@@ -70,7 +67,7 @@ export const CreditCardContainer = () => {
                     className="hidden"
                     value={installment.id}
                     checked={checkTaksit === installment.id}
-                    onChange={handleRadioChange}
+                    onChange={handleChange}
                   />
                   <label
                     htmlFor={`installment-${installment.id}`}
@@ -111,16 +108,18 @@ export const CreditCardContainer = () => {
           </tbody>
         </table>
       </div>
-      {toggle && (
+      {visibleForm && (
         <div className="fixed inset-0 flex items-center justify-center z-50 overflow-auto p-4">
           <div
+            data-name="space"
             className="absolute inset-0 bg-black opacity-50"
-            onClick={handleClose}
+            onClick={handleClick}
           ></div>
           <div className="relative bg-white p-8 rounded-lg shadow-md w-full max-w-2xl mx-auto my-8">
             <button
+              name="exit"
               className="absolute top-4 right-4 text-gray-600 text-2xl"
-              onClick={handleClose}
+              onClick={handleClick}
             >
               &times;
             </button>

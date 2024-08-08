@@ -1,13 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react";
 import { AddressContainer } from "../components/order/AddressContainer";
 import { CreditCardContainer } from "../components/order/CreditCardContainer";
+import { getAddress } from "../store/actions/clientAction";
 
 const CreateOrderPage = () => {
   const cart = useSelector((store) => store.shoppingCart.cart);
   const [toggle, setToggle] = useState(true);
 
+  const dispatch = useDispatch();
   const totalPriceCalculate = () => {
     return cart
       .reduce((accumulator, product) => {
@@ -16,6 +18,13 @@ const CreateOrderPage = () => {
       .toFixed(2);
   };
   const [totalPrice, setTotalPrice] = useState(() => totalPriceCalculate());
+
+  console.log("create-order-page:");
+
+  useEffect(() => {
+    dispatch(getAddress());
+    console.log("create-order-page:");
+  }, []);
 
   useEffect(() => {
     setTotalPrice(totalPriceCalculate());

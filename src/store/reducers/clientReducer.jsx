@@ -5,9 +5,9 @@ import {
   REMOVE_CREDIT_CARD,
   REQUEST_ERROR_CLİENT,
   REQUEST_START_CLİENT,
+  SET_ADDRESS,
   SET_CREDIT_CARD,
   SET_USER,
-  SET_ADDRESS,
 } from "../actions/clientAction";
 
 export const client = {

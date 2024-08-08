@@ -8,6 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/actions/shoppingCartAction";
+import { getProductById } from "../../store/actions/productAction";
 
 const data = [detailImg1, detailImg2];
 
@@ -25,11 +26,9 @@ export const ProductDetail = () => {
   console.log("productid : ", productid);
   console.log("product : ", product);
 
-  /*   useEffect(()=>{
-    const parts = location.pathname?.split("/");
-    const productid = location.pathname?.split("/").pop();
-
-  },[]) */
+  useEffect(() => {
+    dispatch(getProductById(productid));
+  }, []);
 
   const handleClick = (e) => {
     const name = e.target.name;
