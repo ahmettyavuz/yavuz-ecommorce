@@ -2,7 +2,7 @@ import React from "react";
 
 export const AddressCart = () => {
   return (
-    <div className="basis-[45%] mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="basis-[45%] mr-auto max-lg:m-auto  bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
