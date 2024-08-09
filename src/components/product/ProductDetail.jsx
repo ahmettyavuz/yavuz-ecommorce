@@ -1,37 +1,34 @@
 import { useEffect, useState } from "react";
-import detailImg1 from "../../assets/detail-1.jpg";
-import detailImg2 from "../../assets/detail-2.jpeg";
 import { Link } from "react-router-dom";
-import {
-  useHistory,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/actions/shoppingCartAction";
 import { getProductById } from "../../store/actions/productAction";
 
-const data = [detailImg1, detailImg2];
-
 export const ProductDetail = () => {
+  const location = useLocation();
+  const productId = location.pathname?.split("/").pop();
+  const [activeIndex, setActiveIndex] = useState(0);
   const { products } = useSelector((store) => store.product);
+  const [product, setProduct] = useState(() =>
+    products?.find((product) => product.id == productId)
+  );
 
   const dispatch = useDispatch();
-
-  const [activeIndex, setActiveIndex] = useState(0);
-  const location = useLocation();
   const history = useHistory();
-  const productid = location.pathname?.split("/").pop();
-  const product = products.find((product) => product.id == productid);
-
-  console.log("productid : ", productid);
-  console.log("product : ", product);
 
   useEffect(() => {
-    dispatch(getProductById(productid));
+    if (!product) {
+      dispatch(getProductById(productId));
+    }
   }, []);
 
+  useEffect(() => {
+    setProduct(products?.find((product) => product.id == productId));
+  }, [products, productId]);
+
   const handleClick = (e) => {
-    const name = e.target.name;
+    const name = e.currentTarget.name;
 
     if (name === "prev") {
       setActiveIndex(
@@ -46,10 +43,14 @@ export const ProductDetail = () => {
     } else if (name === "basket") {
       dispatch(addToCart({ ...product }));
     } else {
-      console.log(e.target.dataset.value + "girdim");
+      console.log(e.currentTarget.dataset.value + " girdim");
       setActiveIndex(Number(e.currentTarget.dataset.value));
     }
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -74,8 +75,8 @@ export const ProductDetail = () => {
             <article className="basis-[48%]">
               <div className="relative aspect-[1.1/1] pb-5">
                 <img
-                  src={product.images[activeIndex].url}
-                  alt="detail.jpg"
+                  src={product.images[activeIndex]?.url}
+                  alt={`Product image ${activeIndex + 1}`}
                   className="w-full h-full object-contain"
                 />
                 <button
@@ -104,8 +105,10 @@ export const ProductDetail = () => {
                   >
                     <img
                       src={item.url}
-                      alt="detail.jpg"
-                      className={`w-full h-full object-cover ${index == activeIndex ? "opacity-20" : null}`}
+                      alt={`Product thumbnail ${index + 1}`}
+                      className={`w-full h-full object-cover ${
+                        index === activeIndex ? "opacity-20" : ""
+                      }`}
                     />
                   </div>
                 ))}

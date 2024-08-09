@@ -83,7 +83,7 @@ export const getProductById = (id) => (dispatch) => {
     url: `/products/${id}`,
     method: METHODS.GET,
     callbackSuccess: (data) => {
-      dispatch(addProduct(data.products));
+      dispatch(addProduct(data));
     },
     callbackError: (error) => {
       dispatch(requestError(error.message));

@@ -10,7 +10,6 @@ export const REQUEST_START_GLOBAL = "REQUEST_START_GLOBAL";
 export const REQUEST_ERROR_GLOBAL = "REQUEST_ERROR_GLOBAL";
 
 export const requestStart = () => ({ type: REQUEST_START_GLOBAL });
-
 export const requestError = (error) => ({ type: REQUEST_ERROR_GLOBAL, error });
 
 export const setRoles = (data) => {
