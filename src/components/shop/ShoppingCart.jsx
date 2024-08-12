@@ -18,11 +18,16 @@ function ShoppingCart({ product }) {
         </p>
         <div className="flex justify-between">
           <p className="text-base text-gray-500 max-md:text-sm max-sm:text-sm">
-            count:{product.sell_count}
+            count:
+            {product?.sell_count
+              ? product.sell_count
+              : product?.count
+                ? product.count
+                : null}
           </p>
-          <p className="text-base text-gray-500 max-md:text-sm max-sm:text-sm">
+          {/*  <p className="text-base text-gray-500 max-md:text-sm max-sm:text-sm">
             ${(product.price * product.sell_count * 0.8).toFixed(2)}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
