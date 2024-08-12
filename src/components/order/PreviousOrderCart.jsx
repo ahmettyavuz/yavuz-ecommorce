@@ -1,7 +1,3 @@
-import { useEffect, useState } from "react";
-import { METHODS, sendRequest } from "../../util/axiosUtil";
-import ShoppingCart from "../shop/ShoppingCart";
-
 export const PreviousOrderCart = ({
   order,
   index,
@@ -28,7 +24,10 @@ export const PreviousOrderCart = ({
       {isVisibleDetail && (
         <div className="">
           {order.products?.map((product) => (
-            <div className="sm:flex items-center gap-5  shadow-lg rounded-md m-4 p-4">
+            <div
+              key={product.id}
+              className="sm:flex items-center gap-5  shadow-lg rounded-md m-4 p-4"
+            >
               <div className="sm:basis-[20%] max-sm:w-full max-sm:mb-4 aspect-[1/1.3] ">
                 <img
                   src={product.images[0].url}

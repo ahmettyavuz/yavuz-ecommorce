@@ -18,35 +18,15 @@ function ShoppingCart({ product }) {
         </p>
         <div className="flex justify-between">
           <p className="text-base text-gray-500 max-md:text-sm max-sm:text-sm">
-            count:
-            {product?.sell_count
-              ? product.sell_count
-              : product?.count
-                ? product.count
-                : null}
+            count:{product.sell_count}
           </p>
-          {/*  <p className="text-base text-gray-500 max-md:text-sm max-sm:text-sm">
+          <p className="text-base text-gray-500 max-md:text-sm max-sm:text-sm">
             ${(product.price * product.sell_count * 0.8).toFixed(2)}
-          </p> */}
+          </p>
         </div>
       </div>
     </div>
   );
 }
-/*   return (
-    <>
-      <div className="flex">
-        <img className="basis-[35%]" src={img} alt="img" />
-        <div className="flex flex-col basis-[55%]">
-          <p className="text-xl"> BEYAZ pamuk</p>
-          <div className="flex justify-between">
-            <p>count:1</p>
-            <p>149.99 TL</p>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-} */
 
 export default ShoppingCart;
