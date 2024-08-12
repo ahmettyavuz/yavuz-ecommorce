@@ -7,7 +7,7 @@ export const PreviousOrderCart = ({
   console.log("order: ", order);
   return (
     <article className="border-t-2 mb-6 p-4 rounded-md shadow-xl ">
-      <div className="flex max-sm:flex-col justify-between items-center">
+      <div className="flex max-sm:flex-col justify-between items-center font-bold">
         <div
           className="flex items-center gap-2"
           onClick={() =>
@@ -17,7 +17,7 @@ export const PreviousOrderCart = ({
           }
         >
           <h5>Order: {index + 1}</h5>
-          <i className="fa-solid fa-angle-down "></i>
+          <i className="fa-solid fa-angle-down text-xl "></i>
         </div>
         <p>Date : {order.order_date}</p>
       </div>
