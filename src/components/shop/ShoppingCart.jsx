@@ -28,5 +28,20 @@ function ShoppingCart({ product }) {
     </div>
   );
 }
+/*   return (
+    <>
+      <div className="flex">
+        <img className="basis-[35%]" src={img} alt="img" />
+        <div className="flex flex-col basis-[55%]">
+          <p className="text-xl"> BEYAZ pamuk</p>
+          <div className="flex justify-between">
+            <p>count:1</p>
+            <p>149.99 TL</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+} */
 
 export default ShoppingCart;
