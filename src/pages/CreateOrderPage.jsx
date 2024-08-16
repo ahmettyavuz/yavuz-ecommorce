@@ -40,7 +40,7 @@ const CreateOrderPage = () => {
     <section className="flex justify-center items-center py-10">
       <article className="flex justify-between  max-md:flex-col gap-2 basis-[85%]">
         <div className="w-full">
-          <div className="flex text-2xl font-bold gap-2">
+          <div className="flex text-2xl font-bold gap-2 text-center">
             <div
               className={`basis-1/2 aspect-[4/1] flex justify-center items-center border-2 ${toggle ? "border-b-8 border-b-primary text-primary" : "border-b-8 text-gray-500 bg-gray-200"} rounded-lg `}
               onClick={handleClick}
@@ -102,7 +102,11 @@ const CreateOrderPage = () => {
             <div className="flex justify-between max-lg:text-sm pt-2">
               <p className="text-gray-700">Total</p>
               <p className="text-primary font-bold">
-                {totalPrice >= 150 ? totalPrice + cargoPrice : totalPrice}
+                {totalPrice >= 150
+                  ? totalPrice
+                  : (parseFloat(totalPrice) + parseFloat(cargoPrice)).toFixed(
+                      2
+                    )}
               </p>
             </div>
           </div>
